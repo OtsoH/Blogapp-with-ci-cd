@@ -22,6 +22,10 @@ app.use(express.static(path.join(__dirname, 'dist')))
 app.use(express.json())
 app.use(middleware.requestLogger)
 app.use(middleware.tokenExtractor)
+app.get('/healthz', (request, response) => {
+  response.status(200).json({ status: 'ok' })
+})
+
 app.use('/api/blogs', middleware.userExtractor, blogsRouter)
 app.use('/api/users', usersRouter)
 app.use('/api/login', loginRouter)
