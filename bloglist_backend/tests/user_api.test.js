@@ -34,6 +34,8 @@ test('duplicate username returns 400', async () => {
     password: "newpassword"
   }
 
+  await api.post('/api/users').send(newUser).expect(201)
+
   const response = await api
     .post('/api/users')
     .send(newUser)
