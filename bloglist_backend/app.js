@@ -26,6 +26,11 @@ app.get('/healthz', (request, response) => {
   response.status(200).json({ status: 'ok' })
 })
 
+const { version } = require('./package.json')
+app.get('/api/version', (request, response) => {
+  response.json({ version })
+})
+
 app.use('/api/blogs', middleware.userExtractor, blogsRouter)
 app.use('/api/users', usersRouter)
 app.use('/api/login', loginRouter)
