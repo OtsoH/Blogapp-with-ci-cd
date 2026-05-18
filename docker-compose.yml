@@ -1,0 +1,25 @@
+services:
+  frontend:
+    build:
+      context: ./bloglist_frontend
+      dockerfile: Dockerfile
+
+  backend:
+    build:
+      context: ./bloglist_backend
+      dockerfile: Dockerfile
+    env_file:
+      - ./bloglist_backend/.env
+    environment:
+      - NODE_ENV=production
+
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - frontend
+      - backend
+
